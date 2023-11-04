@@ -14,7 +14,7 @@ The part that converts the DOM tree into HTML is written by me, under influence 
 # Installation
 
 ```bash
-pip install dsl
+pip install dsl2html
 ```
 
 # Building

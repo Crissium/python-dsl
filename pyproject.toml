@@ -3,7 +3,7 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "dsl"
+name = "dsl2html"
 version = "0.1.0"
 authors = [
   { name="Yi Xing", email="blandilyte@gmail.com" },
