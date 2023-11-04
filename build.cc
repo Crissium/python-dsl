@@ -202,7 +202,7 @@ void builder::write_media(const node &n)
 
 	if (is_image(filename))
 	{
-		html += "<img src=\"" + url_cache_root + filename + " alt=\"" + filename + "\"/>";
+		html += "<img src=\"" + url_cache_root + filename + "\" alt=\"" + filename + "\"/>";
 	}
 	else if (is_audio(filename))
 	{
