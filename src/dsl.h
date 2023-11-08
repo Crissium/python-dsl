@@ -1,7 +1,7 @@
 #pragma once
 
 #include <array>
-#include <list>
+#include <sstream>
 #include <string>
 #include <regex>
 #include <vector>
@@ -10,9 +10,8 @@ void ltrim(std::string &s);
 void rtrim(std::string &s);
 void trim(std::string &s);
 std::string html_escape(const std::string &s);
-bool endswith(const std::string &str, const std::string &suffix);
 
-struct node : public std::list<node>
+struct node : public std::vector<node>
 {
 	bool is_tag; // false if it's a text node (leaf)
 
@@ -75,8 +74,8 @@ private:
 	char ch;
 	bool escaped;
 
-	void open_tag(const std::string &name, const std::string attrs, std::list<node *> &stack);
-	void close_tag(const std::string &name, std::list<node *> &stack);
+	void open_tag(const std::string &name, const std::string attrs, std::vector<node *> &stack);
+	void close_tag(const std::string &name, std::vector<node *> &stack);
 
 	void next_char();
 
@@ -100,6 +99,8 @@ private:
 
 	bool audio_found;
 
+	std::ostringstream html_stream;
+
 	void write_children(const node &n);
 
 	void node_to_html(const node &n);
@@ -122,10 +123,9 @@ private:
 	void write_unknown(const node &n);
 
 public:
-	std::string html;
 	std::vector<std::string> resources_name;
 
 	builder(const std::string &name_dict);
 
-	void build(const node &root);
+	std::string get_html(const node &root);
 };

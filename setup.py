@@ -7,7 +7,7 @@ setup(
 	ext_modules=[
 		Extension(
 			'dsl',
-			['utils.cc', 'parse.cc', 'build.cc', 'dslmodule.cc']
+			['src/utils.cc', 'src/parse.cc', 'src/build.cc', 'src/dslmodule.cc']
 		)
 	]
 )

@@ -52,9 +52,3 @@ std::string html_escape(const std::string &s)
 	}
 	return result;
 }
-
-bool endswith(const std::string &str, const std::string &suffix)
-{
-	return str.size() >= suffix.size() &&
-		   str.compare(str.size() - suffix.size(), suffix.size(), suffix) == 0;
-}

@@ -5,60 +5,80 @@
 
 bool builder::is_image(const std::string &filename)
 {
-	return endswith(filename, ".png") ||
-		   endswith(filename, ".jpg") ||
-		   endswith(filename, ".jpeg") ||
-		   endswith(filename, ".gif") ||
-		   endswith(filename, ".svg") ||
-		   endswith(filename, ".bmp") ||
-		   endswith(filename, ".tif") ||
-		   endswith(filename, ".tiff") ||
-		   endswith(filename, ".ico") ||
-		   endswith(filename, ".webp") ||
-		   endswith(filename, ".avif") ||
-		   endswith(filename, ".apng") ||
-		   endswith(filename, ".jfif") ||
-		   endswith(filename, ".pjpeg") ||
-		   endswith(filename, ".pjp") ||
-		   endswith(filename, "JPG") ||
-		   endswith(filename, "JPEG") ||
-		   endswith(filename, "PNG") ||
-		   endswith(filename, "GIF") ||
-		   endswith(filename, "SVG") ||
-		   endswith(filename, "BMP") ||
-		   endswith(filename, "TIF") ||
-		   endswith(filename, "TIFF") ||
-		   endswith(filename, "ICO") ||
-		   endswith(filename, "WEBP") ||
-		   endswith(filename, "AVIF") ||
-		   endswith(filename, "APNG") ||
-		   endswith(filename, "JFIF") ||
-		   endswith(filename, "PJPEG") ||
-		   endswith(filename, "PJP");
+	if (filename.size() > 4)
+	{
+		std::string end_length_4 = filename.substr(filename.size() - 4);
+		if (end_length_4 == ".png" || end_length_4 == ".jpg" || end_length_4 == ".gif" || end_length_4 == ".svg" || end_length_4 == ".bmp" || end_length_4 == ".tif" || end_length_4 == ".ico" || end_length_4 == ".pjp" || end_length_4 == ".PNG" || end_length_4 == ".JPG" || end_length_4 == ".GIF" || end_length_4 == ".SVG" || end_length_4 == ".BMP" || end_length_4 == ".TIF" || end_length_4 == ".ICO" || end_length_4 == ".PJP")
+		{
+			return true;
+		}
+	}
+
+	if (filename.size() > 5)
+	{
+		std::string end_length_5 = filename.substr(filename.size() - 5);
+		if (end_length_5 == ".jpeg" || end_length_5 == ".tiff" || end_length_5 == ".webp" || end_length_5 == ".avif" || end_length_5 == ".apng" || end_length_5 == ".jfif" || end_length_5 == ".JPEG" || end_length_5 == ".TIFF" || end_length_5 == ".WEBP" || end_length_5 == ".AVIF" || end_length_5 == ".APNG" || end_length_5 == ".JFIF")
+		{
+			return true;
+		}
+	}
+
+	if (filename.size() > 6)
+	{
+		std::string end_length_6 = filename.substr(filename.size() - 6);
+		if (end_length_6 == ".pjpeg" || end_length_6 == ".PJPEG")
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 bool builder::is_audio(const std::string &filename)
 {
-	return endswith(filename, "mp3") ||
-		   endswith(filename, "ogg") ||
-		   endswith(filename, "wav") ||
-		   endswith(filename, "wave") ||
-		   endswith(filename, "MP3") ||
-		   endswith(filename, "OGG") ||
-		   endswith(filename, "WAV") ||
-		   endswith(filename, "WAVE");
+	if (filename.size() > 4)
+	{
+		std::string end_length_4 = filename.substr(filename.size() - 4);
+		if (end_length_4 == ".mp3" || end_length_4 == ".ogg" || end_length_4 == ".wav" || end_length_4 == ".MP3" || end_length_4 == ".OGG" || end_length_4 == ".WAV")
+		{
+			return true;
+		}
+	}
+
+	if (filename.size() > 5)
+	{
+		std::string end_length_5 = filename.substr(filename.size() - 5);
+		if (end_length_5 == ".wave" || end_length_5 == ".WAVE")
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 bool builder::is_video(const std::string &filename)
 {
-	return endswith(filename, "mp4") ||
-		   endswith(filename, "webm") ||
-		   endswith(filename, "ogv") ||
-		   endswith(filename, "ogg") ||
-		   endswith(filename, "MP4") ||
-		   endswith(filename, "WEBM") ||
-		   endswith(filename, "OGV") ||
-		   endswith(filename, "OGG");
+	if (filename.size() > 4)
+	{
+		std::string end_length_4 = filename.substr(filename.size() - 4);
+		if (end_length_4 == ".mp4" || end_length_4 == ".ogv" || end_length_4 == ".ogg" || end_length_4 == ".MP4" || end_length_4 == ".OGV" || end_length_4 == ".OGG")
+		{
+			return true;
+		}
+	}
+
+	if (filename.size() > 5)
+	{
+		std::string end_length_5 = filename.substr(filename.size() - 5);
+		if (end_length_5 == ".webm" || end_length_5 == ".WEBM")
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 std::string builder::get_node_link(const node &n)
@@ -116,42 +136,42 @@ void builder::write_text(const node &n)
 		text.erase(i, 1);
 	}
 
-	html += text;
+	html_stream << text;
 }
 
 void builder::write_b(const node &n)
 {
-	html += "<b>";
+	html_stream << "<b>";
 	write_children(n);
-	html += "</b>";
+	html_stream << "</b>";
 }
 
 void builder::write_i(const node &n)
 {
-	html += "<i>";
+	html_stream << "<i>";
 	write_children(n);
-	html += "</i>";
+	html_stream << "</i>";
 }
 
 void builder::write_u(const node &n)
 {
-	html += "<u>";
+	html_stream << "<u>";
 	write_children(n);
-	html += "</u>";
+	html_stream << "</u>";
 }
 
 void builder::write_sub(const node &n)
 {
-	html += "<sub>";
+	html_stream << "<sub>";
 	write_children(n);
-	html += "</sub>";
+	html_stream << "</sub>";
 }
 
 void builder::write_sup(const node &n)
 {
-	html += "<sup>";
+	html_stream << "<sup>";
 	write_children(n);
-	html += "</sup>";
+	html_stream << "</sup>";
 }
 
 void builder::write_colour(const node &n)
@@ -161,37 +181,37 @@ void builder::write_colour(const node &n)
 
 	if (colour.empty())
 	{
-		html += "<span style=\"color: darkgreen;\">";
+		html_stream << "<span style=\"color: darkgreen;\">";
 	}
 	else
 	{
-		html += "<span style=\"color: " + colour + ";\">";
+		html_stream << "<span style=\"color: " << colour << ";\">";
 	}
 
 	write_children(n);
-	html += "</span>";
+	html_stream << "</span>";
 }
 
 void builder::write_m(const node &n)
 {
-	html += "<div>";
+	html_stream << "<div>";
 	write_children(n);
-	html += "</div>";
+	html_stream << "</div>";
 }
 
 void builder::write_m_n(const node &n)
 {
 	int level = n.tag_name[1] - '0';
-	html += "<div style=\"margin-left: " + std::to_string(level * 9) + "px;\">";
+	html_stream << "<div style=\"margin-left: " << std::to_string(level * 9) << "px;\">";
 	write_children(n);
-	html += "</div>";
+	html_stream << "</div>";
 }
 
 void builder::write_example(const node &n)
 {
-	html += "<span style=\"color: grey;\">";
+	html_stream << "<span style=\"color: grey;\">";
 	write_children(n);
-	html += "</span>";
+	html_stream << "</span>";
 }
 
 void builder::write_media(const node &n)
@@ -202,61 +222,61 @@ void builder::write_media(const node &n)
 
 	if (is_image(filename))
 	{
-		html += "<img src=\"" + url_cache_root + filename + "\" alt=\"" + filename + "\"/>";
+		html_stream << "<img src=\"" << url_cache_root << filename << "\" alt=\"" << filename << "\"/>";
 	}
 	else if (is_audio(filename))
 	{
 		if (audio_found)
 		{
-			html += "<audio controls src=\"" + url_cache_root + filename + "\">" + filename + "</audio>";
+			html_stream << "<audio controls src=\"" << url_cache_root << filename << "\">" << filename << "</audio>";
 		}
 		else
 		{
-			html += "<audio controls autoplay src=\"" + url_cache_root + filename + "\">" + filename + "</audio>";
+			html_stream << "<audio controls autoplay src=\"" << url_cache_root << filename << "\">" << filename << "</audio>";
 			audio_found = true;
 		}
 	}
 	else if (is_video(filename))
 	{
-		html += "<video controls src=\"" + url_cache_root + filename + "\">" + filename + "</video>";
+		html_stream << "<video controls src=\"" << url_cache_root << filename << "\">" << filename << "</video>";
 	}
 	else
 	{
-		html += "<a href=\"" + url_cache_root + filename + "\">" + filename + "</a>";
+		html_stream << "<a href=\"" << url_cache_root << filename << "\">" << filename << "</a>";
 	}
 }
 
 void builder::write_ref(const node &n)
 {
 	std::string headword = get_node_link(n);
-	html += "<a href=\"" + url_lookup_root + headword + "\">" + headword + "</a>";
+	html_stream << "<a href=\"" << url_lookup_root << headword << "\">" << headword << "</a>";
 }
 
 void builder::write_url(const node &n)
 {
 	std::string url = get_node_link(n);
-	html += "<a href=\"" + url + "\">" + url + "</a>";
+	html_stream << "<a href=\"" << url << "\">" << url << "</a>";
 }
 
 void builder::write_p(const node &n)
 {
-	html += "<i><font color=\"green\">"; // See rule for dsl_p in GoldenDict's source code
+	html_stream << "<i><font color=\"green\">"; // See rule for dsl_p in GoldenDict's source code
 	write_children(n);
-	html += "</font></i>";
+	html_stream << "</font></i>";
 }
 
 void builder::write_br(const node &n)
 {
-	html += "<br/>";
+	html_stream << "<br/>";
 	// It won't hurt if we write children here
 	write_children(n);
 }
 
 void builder::write_unknown(const node &n)
 {
-	html += "<span>";
+	html_stream << "<span>";
 	write_children(n);
-	html += "</span>";
+	html_stream << "</span>";
 }
 
 void builder::node_to_html(const node &n)
@@ -332,11 +352,12 @@ void builder::node_to_html(const node &n)
 
 builder::builder(const std::string &name_dict) : url_cache_root("/api/cache/" + name_dict + "/"),
 												 url_lookup_root("/api/lookup/" + name_dict + "/"),
-												 audio_found(false), html(std::string())
+												 audio_found(false)
 {
 }
 
-void builder::build(const node &root)
+std::string builder::get_html(const node &root)
 {
 	write_children(root);
+	return html_stream.str();
 }

@@ -3,7 +3,6 @@
 #include <algorithm>
 #include <cctype>
 #include <numeric>
-#include <sstream>
 #include <stdexcept>
 
 std::string node::to_string() const
@@ -199,9 +198,9 @@ void dom::process_unsorted_parts(std::string &str, bool strip)
 	}
 }
 
-void dom::open_tag(const std::string &name, const std::string attrs, std::list<node *> &stack)
+void dom::open_tag(const std::string &name, const std::string attrs, std::vector<node *> &stack)
 {
-	std::list<node> nodes_to_reopen;
+	std::vector<node> nodes_to_reopen;
 
 	if (tag_is_m(name))
 	{
@@ -260,10 +259,10 @@ void dom::open_tag(const std::string &name, const std::string attrs, std::list<n
 	}
 }
 
-void dom::close_tag(const std::string &name, std::list<node *> &stack)
+void dom::close_tag(const std::string &name, std::vector<node *> &stack)
 {
 	// Find the tag to be closed
-	std::list<node *>::reverse_iterator n = std::find_if(
+	std::vector<node *>::reverse_iterator n = std::find_if(
 		stack.rbegin(),
 		stack.rend(),
 		[this, &name](const node *n)
@@ -340,7 +339,7 @@ dom::dom(const std::string &dsl_text)
 	string_pos = cleaned_text.c_str();
 	line_start_pos = string_pos;
 
-	std::list<node *> stack; // currently opened tags
+	std::vector<node *> stack; // currently opened tags
 
 	node *text_node = nullptr; // current text node
 	try
