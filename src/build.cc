@@ -260,9 +260,10 @@ void builder::write_url(const node &n)
 
 void builder::write_p(const node &n)
 {
-	html_stream << "<i><font color=\"green\">"; // See rule for dsl_p in GoldenDict's source code
+	// See rule for dsl_p in GoldenDict's source code
+	html_stream << "<span style=\"color: green; font-style: italic;\">";
 	write_children(n);
-	html_stream << "</font></i>";
+	html_stream << "</span>";
 }
 
 void builder::write_br(const node &n)
