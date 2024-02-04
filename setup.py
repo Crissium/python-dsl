@@ -7,7 +7,8 @@ setup(
 	ext_modules=[
 		Extension(
 			'dsl',
-			['src/utils.cc', 'src/parse.cc', 'src/build.cc', 'src/dslmodule.cc']
+			['src/utils.cc', 'src/parse.cc', 'src/build.cc', 'src/dslmodule.cc'],
+			extra_compile_args=['-std=c++11']
 		)
 	]
 )
