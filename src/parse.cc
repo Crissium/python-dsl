@@ -537,7 +537,7 @@ dom::dom(const std::string &dsl_text)
 			text_node->text.push_back(ch);
 		}
 	}
-	catch (std::exception)
+	catch (std::exception const &)
 	{
 	}
 

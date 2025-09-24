@@ -94,8 +94,8 @@ private:
 
 	static std::string get_node_link(const node &n);
 
-	const std::string url_cache_root;
-	const std::string url_lookup_root;
+	const std::string base_url_static_files;
+	const std::string base_url_lookup;
 
 	bool audio_found;
 
@@ -125,7 +125,7 @@ private:
 public:
 	std::vector<std::string> resources_name;
 
-	builder(const std::string &name_dict);
+	builder(const std::string &base_url_static_files, const std::string &base_url_lookup);
 
 	std::string get_html(const node &root);
 };

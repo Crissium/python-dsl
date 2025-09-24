@@ -1,10 +1,10 @@
 #include <Python.h>
 #include "dsl.h"
 
-std::pair<std::string, std::vector<std::string>> to_html(const std::string &dsl, const std::string &name_dict)
+std::pair<std::string, std::vector<std::string>> to_html(const std::string &dsl, const std::string &base_url_static_files, const std::string &base_url_lookup)
 {
 	dom tree(dsl);
-	builder b(name_dict);
+	builder b(base_url_static_files, base_url_lookup);
 	std::string html = b.get_html(tree.root);
 	return std::make_pair(html, b.resources_name);
 }
@@ -12,19 +12,20 @@ std::pair<std::string, std::vector<std::string>> to_html(const std::string &dsl,
 static PyObject *to_html_wrapper(PyObject *self, PyObject *args)
 {
 	const char *dsl;
-	const char *name_dict;
+	const char *base_url_static_files;
+	const char *base_url_lookup;
 
-	if (!PyArg_ParseTuple(args, "ss", &dsl, &name_dict))
+	if (!PyArg_ParseTuple(args, "sss", &dsl, &base_url_static_files, &base_url_lookup))
 	{
 		return NULL;
 	}
 
-	builder b(name_dict);
+	builder b(base_url_static_files, base_url_lookup);
 	std::string html;
 
 	Py_BEGIN_ALLOW_THREADS
 		dom tree(dsl);
-	html = b.get_html(tree.root);
+		html = b.get_html(tree.root);
 	Py_END_ALLOW_THREADS
 
 		PyObject *html_str = PyUnicode_DecodeUTF8(html.c_str(), html.length(), "strict");

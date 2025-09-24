@@ -222,34 +222,34 @@ void builder::write_media(const node &n)
 
 	if (is_image(filename))
 	{
-		html_stream << "<img src=\"" << url_cache_root << filename << "\" alt=\"" << filename << "\"/>";
+		html_stream << "<img src=\"" << base_url_static_files << filename << "\" alt=\"" << filename << "\"/>";
 	}
 	else if (is_audio(filename))
 	{
 		if (audio_found)
 		{
-			html_stream << "<audio controls src=\"" << url_cache_root << filename << "\">" << filename << "</audio>";
+			html_stream << "<audio controls src=\"" << base_url_static_files << filename << "\">" << filename << "</audio>";
 		}
 		else
 		{
-			html_stream << "<audio controls autoplay src=\"" << url_cache_root << filename << "\">" << filename << "</audio>";
+			html_stream << "<audio controls autoplay src=\"" << base_url_static_files << filename << "\">" << filename << "</audio>";
 			audio_found = true;
 		}
 	}
 	else if (is_video(filename))
 	{
-		html_stream << "<video controls src=\"" << url_cache_root << filename << "\">" << filename << "</video>";
+		html_stream << "<video controls src=\"" << base_url_static_files << filename << "\">" << filename << "</video>";
 	}
 	else
 	{
-		html_stream << "<a href=\"" << url_cache_root << filename << "\">" << filename << "</a>";
+		html_stream << "<a href=\"" << base_url_static_files << filename << "\">" << filename << "</a>";
 	}
 }
 
 void builder::write_ref(const node &n)
 {
 	std::string headword = get_node_link(n);
-	html_stream << "<a href=\"" << url_lookup_root << headword << "\">" << headword << "</a>";
+	html_stream << "<a href=\"" << base_url_lookup << headword << "\">" << headword << "</a>";
 }
 
 void builder::write_url(const node &n)
@@ -351,9 +351,10 @@ void builder::node_to_html(const node &n)
 	}
 }
 
-builder::builder(const std::string &name_dict) : url_cache_root("/api/cache/" + name_dict + "/"),
-												 url_lookup_root("/api/lookup/" + name_dict + "/"),
-												 audio_found(false)
+builder::builder(const std::string &base_url_static_files, const std::string &base_url_lookup)
+	: base_url_static_files(base_url_static_files)
+	, base_url_lookup(base_url_lookup)
+	, audio_found(false)
 {
 }
 
